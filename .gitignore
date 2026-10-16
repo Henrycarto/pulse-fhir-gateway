@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+out/
+outbox.sqlite3
+*.sqlite3
+validator_cli.jar
+validation.json
+.env
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+*.zip
