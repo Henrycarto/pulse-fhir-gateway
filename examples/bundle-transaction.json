@@ -1,0 +1,428 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:09ac363d-abfe-57bf-aeda-287e1dca8ac3",
+      "resource": {
+        "resourceType": "Device",
+        "identifier": [
+          {
+            "system": "https://henrycarto.com/fhir/pulse-monitor-serial",
+            "value": "PM-001"
+          }
+        ],
+        "status": "active",
+        "manufacturer": "pulse-monitor-avr (open source)",
+        "deviceName": [
+          {
+            "name": "Pulse monitor, ATmega328P, PPG finger sensor",
+            "type": "model-name"
+          }
+        ],
+        "note": [
+          {
+            "text": "Prototype built for teaching. Not a medical device."
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Device",
+        "ifNoneExist": "identifier=https://henrycarto.com/fhir/pulse-monitor-serial|PM-001"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:afd64250-89dc-5934-a4e1-3a8ae95b2f1d",
+      "resource": {
+        "resourceType": "Observation",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/heartrate"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:afd64250-89dc-5934-a4e1-3a8ae95b2f1d"
+          }
+        ],
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ],
+          "text": "Heart rate"
+        },
+        "subject": {
+          "reference": "Patient/example"
+        },
+        "effectivePeriod": {
+          "start": "2026-10-16T07:00:00+00:00",
+          "end": "2026-10-16T07:00:30+00:00"
+        },
+        "device": {
+          "reference": "urn:uuid:09ac363d-abfe-57bf-aeda-287e1dca8ac3"
+        },
+        "method": {
+          "text": "Photoplethysmography; median of the device's beat-interval rate over the period"
+        },
+        "valueQuantity": {
+          "value": 71,
+          "unit": "beats/minute",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        }
+      },
+      "request": {
+        "method": "POST",
+        "url": "Observation",
+        "ifNoneExist": "identifier=urn:ietf:rfc:3986|urn:uuid:afd64250-89dc-5934-a4e1-3a8ae95b2f1d"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3721d78c-6c9a-58eb-9b57-2cc2c9bb1255",
+      "resource": {
+        "resourceType": "Observation",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/heartrate"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:3721d78c-6c9a-58eb-9b57-2cc2c9bb1255"
+          }
+        ],
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ],
+          "text": "Heart rate"
+        },
+        "subject": {
+          "reference": "Patient/example"
+        },
+        "effectivePeriod": {
+          "start": "2026-10-16T07:00:30+00:00",
+          "end": "2026-10-16T07:01:00+00:00"
+        },
+        "device": {
+          "reference": "urn:uuid:09ac363d-abfe-57bf-aeda-287e1dca8ac3"
+        },
+        "method": {
+          "text": "Photoplethysmography; median of the device's beat-interval rate over the period"
+        },
+        "valueQuantity": {
+          "value": 71,
+          "unit": "beats/minute",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        }
+      },
+      "request": {
+        "method": "POST",
+        "url": "Observation",
+        "ifNoneExist": "identifier=urn:ietf:rfc:3986|urn:uuid:3721d78c-6c9a-58eb-9b57-2cc2c9bb1255"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:97777ca6-30af-5c26-b399-6033cf537da2",
+      "resource": {
+        "resourceType": "Observation",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/heartrate"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:97777ca6-30af-5c26-b399-6033cf537da2"
+          }
+        ],
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ],
+          "text": "Heart rate"
+        },
+        "subject": {
+          "reference": "Patient/example"
+        },
+        "effectivePeriod": {
+          "start": "2026-10-16T07:01:00+00:00",
+          "end": "2026-10-16T07:01:30+00:00"
+        },
+        "device": {
+          "reference": "urn:uuid:09ac363d-abfe-57bf-aeda-287e1dca8ac3"
+        },
+        "method": {
+          "text": "Photoplethysmography; median of the device's beat-interval rate over the period"
+        },
+        "dataAbsentReason": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+              "code": "not-performed",
+              "display": "Not Performed"
+            }
+          ],
+          "text": "Sensor gave a valid rate for 42% of the interval (minimum 80%)."
+        }
+      },
+      "request": {
+        "method": "POST",
+        "url": "Observation",
+        "ifNoneExist": "identifier=urn:ietf:rfc:3986|urn:uuid:97777ca6-30af-5c26-b399-6033cf537da2"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1ee24da7-1997-5a48-8cc1-e37df8d69a7b",
+      "resource": {
+        "resourceType": "Observation",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/heartrate"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:1ee24da7-1997-5a48-8cc1-e37df8d69a7b"
+          }
+        ],
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ],
+          "text": "Heart rate"
+        },
+        "subject": {
+          "reference": "Patient/example"
+        },
+        "effectivePeriod": {
+          "start": "2026-10-16T07:01:30+00:00",
+          "end": "2026-10-16T07:02:00+00:00"
+        },
+        "device": {
+          "reference": "urn:uuid:09ac363d-abfe-57bf-aeda-287e1dca8ac3"
+        },
+        "method": {
+          "text": "Photoplethysmography; median of the device's beat-interval rate over the period"
+        },
+        "dataAbsentReason": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+              "code": "not-performed",
+              "display": "Not Performed"
+            }
+          ],
+          "text": "Sensor gave a valid rate for 30% of the interval (minimum 80%)."
+        }
+      },
+      "request": {
+        "method": "POST",
+        "url": "Observation",
+        "ifNoneExist": "identifier=urn:ietf:rfc:3986|urn:uuid:1ee24da7-1997-5a48-8cc1-e37df8d69a7b"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5980d6b9-671f-5922-a302-e6990d5c619b",
+      "resource": {
+        "resourceType": "Observation",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/heartrate"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:5980d6b9-671f-5922-a302-e6990d5c619b"
+          }
+        ],
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ],
+          "text": "Heart rate"
+        },
+        "subject": {
+          "reference": "Patient/example"
+        },
+        "effectivePeriod": {
+          "start": "2026-10-16T07:02:00+00:00",
+          "end": "2026-10-16T07:02:30+00:00"
+        },
+        "device": {
+          "reference": "urn:uuid:09ac363d-abfe-57bf-aeda-287e1dca8ac3"
+        },
+        "method": {
+          "text": "Photoplethysmography; median of the device's beat-interval rate over the period"
+        },
+        "valueQuantity": {
+          "value": 71,
+          "unit": "beats/minute",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        }
+      },
+      "request": {
+        "method": "POST",
+        "url": "Observation",
+        "ifNoneExist": "identifier=urn:ietf:rfc:3986|urn:uuid:5980d6b9-671f-5922-a302-e6990d5c619b"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:cd411fdf-2c5a-5642-8187-705c0d46d00c",
+      "resource": {
+        "resourceType": "Observation",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/heartrate"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:cd411fdf-2c5a-5642-8187-705c0d46d00c"
+          }
+        ],
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ],
+          "text": "Heart rate"
+        },
+        "subject": {
+          "reference": "Patient/example"
+        },
+        "effectivePeriod": {
+          "start": "2026-10-16T07:02:30+00:00",
+          "end": "2026-10-16T07:03:00+00:00"
+        },
+        "device": {
+          "reference": "urn:uuid:09ac363d-abfe-57bf-aeda-287e1dca8ac3"
+        },
+        "method": {
+          "text": "Photoplethysmography; median of the device's beat-interval rate over the period"
+        },
+        "valueQuantity": {
+          "value": 71,
+          "unit": "beats/minute",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        }
+      },
+      "request": {
+        "method": "POST",
+        "url": "Observation",
+        "ifNoneExist": "identifier=urn:ietf:rfc:3986|urn:uuid:cd411fdf-2c5a-5642-8187-705c0d46d00c"
+      }
+    }
+  ]
+}
