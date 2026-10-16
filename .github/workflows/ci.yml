@@ -14,7 +14,12 @@ jobs:
           python-version: "3.12"
       - run: pip install -e ".[dev]"
       - run: ruff check . && ruff format --check .
-      - run: pytest
+      - run: pytest --junitxml=junit-unit.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: junit-unit
+          path: junit-unit.xml
 
   hapi-integration:
     runs-on: ubuntu-latest
@@ -35,9 +40,14 @@ jobs:
             sleep 5
           done
           echo "HAPI FHIR did not start" && exit 1
-      - run: pytest -m integration -v
+      - run: pytest -m integration -v --junitxml=junit-integration.xml
         env:
           FHIR_BASE_URL: http://localhost:8080/fhir
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: junit-integration
+          path: junit-integration.xml
 
   hl7-validator:
     runs-on: ubuntu-latest
@@ -63,3 +73,28 @@ jobs:
         with:
           name: hl7-validation
           path: validation.json
+
+  traceability:
+    # Every requirement must be implemented and verified by a test that passed in this run,
+    # and every risk control must be verified. Evidence comes from both test jobs.
+    needs: [unit, hapi-integration]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: junit-*
+          merge-multiple: true
+      - uses: Henrycarto/medtrace@v0.1.0
+        with:
+          junit: "junit-*.xml"
+          report: traceability.md
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: traceability
+          path: traceability.md

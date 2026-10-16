@@ -82,6 +82,23 @@ monitor's detector firmware, compiled unchanged on the host, on synthetic PPG si
 that repository's scenario generator (rest at 72 BPM, an exercise step from 62 to 112 BPM, and
 a 40 s sensor dropout), then formatted exactly as the firmware writes them to serial.
 
+## Requirements, risks and traceability
+
+The gateway is specified in [`docs/requirements.yml`](docs/requirements.yml) (14 software
+requirements) and analysed in [`docs/risks.yml`](docs/risks.yml) (6 hazards, scored before and
+after controls, in the hazard → situation → harm shape of ISO 14971). Code is tagged
+`# @implements SRS-…` and tests `# @verifies SRS-…`.
+
+CI's `traceability` job collects the JUnit results from the unit and HAPI integration jobs and
+runs [medtrace](https://github.com/Henrycarto/medtrace) on them. The build fails if any
+requirement has no code, no test, or a test that failed or did not run, or if any risk control
+is not verified by a passing test. The matrix is published as the job summary.
+
+One risk, a reading attached to the wrong patient (HAZ-005), has no control in the software at
+all. The gateway passes on whatever patient identifier it is given. Its control is stated as
+outside the software (device assignment in the clinical workflow), and the matrix shows that
+openly instead of pretending code covers it.
+
 ## Limits
 
 - The device is a teaching prototype, not a medical device. The FHIR is correct; the

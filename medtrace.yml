@@ -1,0 +1,3 @@
+requirements: docs/requirements.yml
+risks: docs/risks.yml
+include: ["pulse_fhir/**/*.py", "tests/**/*.py"]

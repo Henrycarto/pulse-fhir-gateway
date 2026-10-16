@@ -61,6 +61,7 @@ def _batches(it, n):
         yield batch
 
 
+# @implements SRS-014
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="pulse-fhir", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest="mode", required=True)

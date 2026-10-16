@@ -1,0 +1,100 @@
+# Software requirements for pulse-fhir-gateway.
+# Each one is traced to code (@implements) and to tests (@verifies), and checked in CI by medtrace.
+# User needs (UN-xx) are listed at the end of this file for context; they are not traced to code.
+
+requirements:
+  - id: SRS-001
+    title: Parse the firmware serial line and drop anything malformed
+    text: >
+      The gateway shall accept lines of the form "<raw>,<led*500>,<bpm*10>" with values in the
+      firmware's ranges, and shall discard any other line without guessing a value.
+    derived_from: [UN-01]
+
+  - id: SRS-002
+    title: One heart rate value per fixed window, timed by sample count
+    text: >
+      The gateway shall produce one value per configurable window (default 30 s), timed from the
+      start instant plus the number of samples at 200 Hz, not from arrival time.
+    derived_from: [UN-01]
+
+  - id: SRS-003
+    title: Report a window as absent, with the reason, when the sensor gave too little valid data
+    text: >
+      When fewer than the configured share (default 80%) of a window's samples carry a valid rate,
+      the gateway shall send no value and shall state the coverage in a dataAbsentReason.
+    derived_from: [UN-02]
+
+  - id: SRS-004
+    title: Treat a physiologically implausible rate as absent
+    text: When a window's median is outside 25 to 250 BPM, the gateway shall send it as absent.
+    derived_from: [UN-02]
+
+  - id: SRS-005
+    title: Use the median so short artefacts do not move the value
+    text: The window value shall be the median of the valid rates in the window.
+    derived_from: [UN-02]
+
+  - id: SRS-006
+    title: Refuse a start time without a time zone
+    text: The gateway shall reject a start instant that has no UTC offset.
+    derived_from: [UN-01]
+
+  - id: SRS-007
+    title: Do not report a partial window
+    text: A trailing window shorter than the configured length shall not be reported.
+    derived_from: [UN-02]
+
+  - id: SRS-008
+    title: Code each value as a FHIR R4 heart rate vital sign
+    text: >
+      Each Observation shall declare the R4 heart rate profile, carry LOINC 8867-4, category
+      vital-signs, UCUM /min, and exactly one of a value or a dataAbsentReason.
+    derived_from: [UN-03]
+
+  - id: SRS-009
+    title: Store each window exactly once, however often it is sent
+    text: >
+      Each Observation shall carry an identifier derived from device serial and window start and
+      shall be sent as a conditional create on that identifier.
+    derived_from: [UN-04]
+
+  - id: SRS-010
+    title: Link every value to the device that measured it
+    text: >
+      Each Observation shall reference a Device resource identified by the device serial, created
+      conditionally in the same transaction.
+    derived_from: [UN-03]
+
+  - id: SRS-011
+    title: Retry temporary server and network failures
+    text: >
+      Network errors, 408, 429 and 5xx shall be retried with exponential backoff, honouring
+      Retry-After, up to a fixed number of attempts.
+    derived_from: [UN-04]
+
+  - id: SRS-012
+    title: Keep undelivered data across outages and restarts, and deliver it in order
+    text: >
+      Bundles shall be persisted before sending, removed only after a 2xx response, kept across a
+      process restart, and sent oldest first.
+    derived_from: [UN-04]
+
+  - id: SRS-013
+    title: Set aside bundles the server rejects, without blocking the rest
+    text: >
+      A bundle rejected with a non-retryable 4xx shall not be retried; it shall be moved to a
+      dead-letter store with the server's response, and later bundles shall still be sent.
+    derived_from: [UN-04]
+
+  - id: SRS-014
+    title: Authenticate with a bearer token when one is configured
+    text: When FHIR_TOKEN is set, every request shall carry it as a bearer token.
+    derived_from: [UN-05]
+
+# User needs, for context
+user_needs:
+  UN-01: Clinicians can see a patient's heart rate over time from the pulse monitor.
+  UN-02: A value in the record reflects the patient, or is clearly marked as missing.
+  UN-03: Any FHIR R4 system can read the values without custom mapping.
+  UN-04: No value is lost or duplicated because of network or server problems.
+  UN-05: Only authorised systems can write to the record.

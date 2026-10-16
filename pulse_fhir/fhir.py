@@ -45,11 +45,13 @@ def narrative(text: str) -> dict:
     return {"status": "generated", "div": f'<div xmlns="http://www.w3.org/1999/xhtml">{html.escape(text)}</div>'}
 
 
+# @implements SRS-009
 def observation_uri(device_serial: str, window: HeartRateWindow) -> str:
     """Stable id for one device and one interval, the same on every retry."""
     return f"urn:uuid:{uuid.uuid5(_NAMESPACE, f'{device_serial}|{iso(window.start)}')}"
 
 
+# @implements SRS-010
 def device(device_serial: str, device_system: str = DEFAULT_DEVICE_SYSTEM) -> dict:
     return {
         "resourceType": "Device",
@@ -62,6 +64,7 @@ def device(device_serial: str, device_system: str = DEFAULT_DEVICE_SYSTEM) -> di
     }
 
 
+# @implements SRS-008, SRS-003
 def heart_rate_observation(
     window: HeartRateWindow,
     *,
@@ -105,6 +108,7 @@ def heart_rate_observation(
     return {"resourceType": obs.pop("resourceType"), "meta": obs.pop("meta"), "text": narrative(summary), **obs}
 
 
+# @implements SRS-009, SRS-010
 def transaction_bundle(
     windows: list[HeartRateWindow],
     *,

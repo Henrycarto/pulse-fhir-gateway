@@ -1,0 +1,67 @@
+# Software-related risks for pulse-fhir-gateway, in the shape ISO 14971 uses:
+# hazard -> hazardous situation -> harm, scored before and after controls.
+#
+# Assumed intended use, for this analysis only: recording heart rate trends for review by a
+# clinician. Not alarms, not diagnosis. The device is a teaching prototype, not a medical device.
+#
+# Severity 1 negligible .. 5 catastrophic. Probability 1 improbable .. 5 frequent.
+
+acceptability:
+  max_score: 6
+
+risks:
+  - id: HAZ-001
+    hazard: Stored heart rate that does not reflect the patient
+    situation: Sensor off or artefact during a window, and a number is stored anyway
+    harm: Clinician trusts a normal-looking value and recognises deterioration late
+    severity: 4
+    probability: 3
+    controls: [SRS-003, SRS-004, SRS-005, SRS-007]
+    residual_probability: 1
+
+  - id: HAZ-002
+    hazard: The same reading stored more than once
+    situation: A retry after a timeout creates a second copy
+    harm: Distorted trend or counts lead to a wrong judgement of stability
+    severity: 2
+    probability: 4
+    controls: [SRS-009]
+    residual_probability: 1
+
+  - id: HAZ-003
+    hazard: Reading stored with the wrong time
+    situation: Time taken from bursty USB arrival, or a start time without a time zone
+    harm: A change is attributed to the wrong moment, for example before or after a medication
+    severity: 3
+    probability: 3
+    controls: [SRS-002, SRS-006]
+    residual_probability: 1
+
+  - id: HAZ-004
+    hazard: Readings lost without trace
+    situation: Server or network unavailable while the device records
+    harm: A gap is read as "nothing happened"
+    severity: 3
+    probability: 4
+    controls: [SRS-011, SRS-012, SRS-013, SRS-003]
+    residual_probability: 1
+
+  - id: HAZ-005
+    hazard: Reading attached to the wrong patient
+    situation: The wrong patient identifier is given when the device is started
+    harm: Decision made on another patient's data
+    severity: 4
+    probability: 2
+    controls: []
+    external_controls:
+      - Device-to-patient assignment is done in the clinical workflow and checked at the bedside; the gateway only passes the identifier it is given
+    residual_probability: 1
+
+  - id: HAZ-006
+    hazard: Reading with unknown origin
+    situation: Values from several devices cannot be told apart
+    harm: A faulty device's values cannot be found and excluded
+    severity: 3
+    probability: 2
+    controls: [SRS-010, SRS-008]
+    residual_probability: 1

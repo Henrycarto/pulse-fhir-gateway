@@ -24,6 +24,7 @@ def observations(bundle):
     return [e["resource"] for e in bundle["entry"] if e["resource"]["resourceType"] == "Observation"]
 
 
+# @verifies SRS-008
 def test_bundle_and_every_resource_parse_as_fhir(recordings):
     b = bundle_for(recordings["dropout"])
     Bundle.model_validate(b)
@@ -31,6 +32,7 @@ def test_bundle_and_every_resource_parse_as_fhir(recordings):
         Observation.model_validate(o)
 
 
+# @verifies SRS-008
 def test_heart_rate_profile_fixed_values(recordings):
     for o in observations(bundle_for(recordings["dropout"])):
         assert o["meta"]["profile"] == [HEART_RATE_PROFILE]
@@ -46,6 +48,7 @@ def test_heart_rate_profile_fixed_values(recordings):
             assert isinstance(q["value"], int)
 
 
+# @verifies SRS-003, SRS-008
 def test_sensor_off_window_carries_a_reason(recordings):
     absent = [o for o in observations(bundle_for(recordings["dropout"])) if "dataAbsentReason" in o]
     assert len(absent) == 2
@@ -53,6 +56,7 @@ def test_sensor_off_window_carries_a_reason(recordings):
     assert "42%" in absent[0]["dataAbsentReason"]["text"]
 
 
+# @verifies SRS-009
 def test_identifiers_are_stable_across_rebuilds_and_unique_per_device(recordings):
     ids = lambda b: [o["identifier"][0]["value"] for o in observations(b)]  # noqa: E731
     first, again = ids(bundle_for(recordings["rest"])), ids(bundle_for(recordings["rest"]))
@@ -62,6 +66,7 @@ def test_identifiers_are_stable_across_rebuilds_and_unique_per_device(recordings
     assert not set(first) & set(other_device)
 
 
+# @verifies SRS-009, SRS-010
 def test_every_create_is_conditional_and_references_resolve_in_the_bundle(recordings):
     b = bundle_for(recordings["rest"])
     full_urls = [e["fullUrl"] for e in b["entry"]]

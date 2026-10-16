@@ -23,6 +23,7 @@ def count(http, query):
     return http.get(f"{BASE}/{query}&_summary=count").raise_for_status().json()["total"]
 
 
+# @verifies SRS-009, SRS-010
 def test_replaying_twice_stores_each_window_exactly_once(tmp_path):
     run = uuid.uuid4().hex[:8]
     serial, mrn = f"IT-{run}", f"MRN-{run}"

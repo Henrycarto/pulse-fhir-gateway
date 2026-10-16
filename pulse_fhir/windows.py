@@ -33,6 +33,7 @@ class HeartRateWindow:
     absent_reason: str | None  # why bpm is None: "low-coverage" or "implausible"
 
 
+# @implements SRS-003, SRS-004, SRS-005
 def summarise(start: datetime, end: datetime, bpms: list[float], min_coverage: float) -> HeartRateWindow:
     valid = [b for b in bpms if b > 0]
     coverage = len(valid) / len(bpms) if bpms else 0.0
@@ -44,6 +45,7 @@ def summarise(start: datetime, end: datetime, bpms: list[float], min_coverage: f
     return HeartRateWindow(start, end, round(median), coverage, None)
 
 
+# @implements SRS-002, SRS-006, SRS-007
 def windows(
     samples: Iterable[Sample],
     start: datetime,

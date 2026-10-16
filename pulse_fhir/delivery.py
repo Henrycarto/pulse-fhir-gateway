@@ -36,6 +36,7 @@ class Unavailable(Exception):
 
 
 class FhirClient:
+    # @implements SRS-014
     def __init__(
         self, base_url: str, token: str | None = None, timeout: float = 15.0, transport: httpx.BaseTransport | None = None
     ):
@@ -46,6 +47,7 @@ class FhirClient:
         self._base = base_url.rstrip("/")
         self._http = httpx.Client(headers=headers, timeout=timeout, transport=transport)
 
+    # @implements SRS-011, SRS-013
     def transaction(self, bundle: dict, attempts: int = 4, base_delay: float = 0.5, sleep=time.sleep) -> dict:
         """POST a transaction bundle. Retries transient failures with backoff."""
         for attempt in range(attempts):
@@ -79,6 +81,7 @@ class FlushReport:
     stopped_on: str | None = None
 
 
+# @implements SRS-012
 class Outbox:
     def __init__(self, path: str = "outbox.sqlite3"):
         self.db = sqlite3.connect(path)
@@ -109,6 +112,7 @@ class Outbox:
     def dead(self) -> int:
         return self.db.execute("SELECT COUNT(*) FROM dead_letter").fetchone()[0]
 
+    # @implements SRS-012, SRS-013
     def flush(self, client: FhirClient, **retry) -> FlushReport:
         """Send queued bundles oldest first; stop at the first retryable failure."""
         report = FlushReport()

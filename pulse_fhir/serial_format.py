@@ -19,6 +19,7 @@ class Sample:
     bpm: float  # 0.0 means "no reliable rate"
 
 
+# @implements SRS-001
 def parse_line(line: str) -> Sample | None:
     """Return a Sample, or None for anything that is not a complete, valid line.
 

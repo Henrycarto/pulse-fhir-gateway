@@ -14,3 +14,5 @@ validation.json
 CLAUDE.md
 CLAUDE.local.md
 *.zip
+junit-*.xml
+traceability.md
