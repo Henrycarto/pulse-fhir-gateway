@@ -5,6 +5,10 @@
       "http://hl7.org/fhir/StructureDefinition/heartrate"
     ]
   },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Heart rate not performed, 2026-10-16T07:01:00+00:00 to 2026-10-16T07:01:30+00:00, device PM-001. Sensor gave a valid rate for 42% of the interval (minimum 80%).</div>"
+  },
   "identifier": [
     {
       "system": "urn:ietf:rfc:3986",
@@ -41,6 +45,11 @@
     "start": "2026-10-16T07:01:00+00:00",
     "end": "2026-10-16T07:01:30+00:00"
   },
+  "performer": [
+    {
+      "reference": "Patient/example"
+    }
+  ],
   "device": {
     "reference": "Device/example"
   },

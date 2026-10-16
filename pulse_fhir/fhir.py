@@ -3,6 +3,8 @@
 Observations follow the FHIR R4 heart rate profile
 (http://hl7.org/fhir/StructureDefinition/heartrate): LOINC 8867-4, category
 vital-signs, UCUM "/min", and either a value or a dataAbsentReason (vs-2).
+Each resource carries a generated narrative (dom-6) and each Observation names
+the patient as performer: the reading is self-measured with a worn sensor.
 
 Every resource carries a deterministic identifier and is sent with a
 conditional create (`ifNoneExist`). Sending the same window twice, after a
@@ -11,6 +13,7 @@ timeout or a crash, never creates a duplicate on the server.
 
 from __future__ import annotations
 
+import html
 import uuid
 from datetime import datetime
 
@@ -37,6 +40,11 @@ def iso(dt: datetime) -> str:
     return dt.isoformat(timespec="seconds")
 
 
+def narrative(text: str) -> dict:
+    """Human-readable summary of a resource (FHIR best practice dom-6)."""
+    return {"status": "generated", "div": f'<div xmlns="http://www.w3.org/1999/xhtml">{html.escape(text)}</div>'}
+
+
 def observation_uri(device_serial: str, window: HeartRateWindow) -> str:
     """Stable id for one device and one interval, the same on every retry."""
     return f"urn:uuid:{uuid.uuid5(_NAMESPACE, f'{device_serial}|{iso(window.start)}')}"
@@ -45,6 +53,7 @@ def observation_uri(device_serial: str, window: HeartRateWindow) -> str:
 def device(device_serial: str, device_system: str = DEFAULT_DEVICE_SYSTEM) -> dict:
     return {
         "resourceType": "Device",
+        "text": narrative(f"Pulse monitor, ATmega328P, PPG finger sensor, serial {device_serial}. Not a medical device."),
         "identifier": [{"system": device_system, "value": device_serial}],
         "status": "active",
         "manufacturer": "pulse-monitor-avr (open source)",
@@ -78,18 +87,22 @@ def heart_rate_observation(
         },
         "subject": {"reference": subject},
         "effectivePeriod": {"start": iso(window.start), "end": iso(window.end)},
+        # self-measured: the patient wearing the sensor is the performer, the hardware is the device
+        "performer": [{"reference": subject}],
         "device": {"reference": device_ref},
         "method": {"text": "Photoplethysmography; median of the device's beat-interval rate over the period"},
     }
+    period = f"{iso(window.start)} to {iso(window.end)}"
     if window.bpm is not None:
         obs["valueQuantity"] = {"value": window.bpm, "unit": "beats/minute", "system": UCUM, "code": "/min"}
+        summary = f"Heart rate {window.bpm} /min, {period}, device {device_serial}."
     else:
         code, display, text = _ABSENT[window.absent_reason or "low-coverage"]
-        obs["dataAbsentReason"] = {
-            "coding": [{"system": DATA_ABSENT, "code": code, "display": display}],
-            "text": text.format(pct=round(window.coverage * 100), min=round(min_coverage * 100)),
-        }
-    return obs
+        reason = text.format(pct=round(window.coverage * 100), min=round(min_coverage * 100))
+        obs["dataAbsentReason"] = {"coding": [{"system": DATA_ABSENT, "code": code, "display": display}], "text": reason}
+        summary = f"Heart rate {display.lower()}, {period}, device {device_serial}. {reason}"
+    # narrative sits where readers expect it, right after meta
+    return {"resourceType": obs.pop("resourceType"), "meta": obs.pop("meta"), "text": narrative(summary), **obs}
 
 
 def transaction_bundle(

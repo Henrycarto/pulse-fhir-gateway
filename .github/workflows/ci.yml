@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       hapi:
-        image: hapiproject/hapi:latest
+        image: hapiproject/hapi:v8.12.0-2
         ports: ["8080:8080"]
     steps:
       - uses: actions/checkout@v4
@@ -56,7 +56,7 @@ jobs:
         run: git diff --exit-code examples/
       - name: Official HL7 FHIR validator
         run: |
-          curl -sSL -o validator_cli.jar https://github.com/hapifhir/org.hl7.fhir.core/releases/latest/download/validator_cli.jar
+          curl -sSL -o validator_cli.jar https://github.com/hapifhir/org.hl7.fhir.core/releases/download/7.0.2/validator_cli.jar
           java -jar validator_cli.jar examples/*.json -version 4.0.1 -output validation.json
       - uses: actions/upload-artifact@v4
         if: always()

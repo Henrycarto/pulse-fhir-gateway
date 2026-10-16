@@ -59,6 +59,16 @@ The Device is created the same way, conditionally on its serial number. Observat
 to it by its in-bundle `urn:uuid`, and the server rewrites those references to the stored
 Device whether it was just created or already existed.
 
+## Why a narrative and a performer
+
+The official HL7 validator passes the resources with two best-practice warnings: a resource
+should carry a human-readable narrative (`dom-6`), and an Observation should say who
+performed it. Both are now set. The narrative is one generated sentence ("Heart rate 71 /min,
+07:00:00 to 07:00:30, device PM-001", or the absent reason), so a system that only shows
+`text` still shows something true. The performer is the patient: the sensor is worn and the
+reading is self-measured, and FHIR R4 does not allow a Device as a performer. The hardware
+stays in `Observation.device`, where it belongs.
+
 ## Why a transaction bundle
 
 All resources for a batch succeed or fail together. There is never an Observation pointing at

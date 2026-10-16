@@ -1,6 +1,6 @@
 """End to end against a real FHIR server (HAPI FHIR in CI).
 
-docker run -p 8080:8080 hapiproject/hapi:latest
+docker run -p 8080:8080 hapiproject/hapi:v8.12.0-2
 FHIR_BASE_URL=http://localhost:8080/fhir pytest -m integration
 """
 

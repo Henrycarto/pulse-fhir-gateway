@@ -32,6 +32,8 @@ pulse monitor ──USB──> parse ──> 30 s windows ──> FHIR transacti
   record with a gap is honest. A record with an invented 71 is not.
 - **Standard coding.** FHIR R4 heart rate profile: LOINC `8867-4`, category `vital-signs`,
   UCUM `/min`, and a `Device` resource so every value traces back to the hardware that made it.
+  Every resource carries a generated narrative and every Observation names the patient as
+  performer, so the official HL7 validator reports no errors and no warnings about the content.
 - **Idempotent delivery.** Each Observation gets a deterministic identifier (UUIDv5 of device
   serial and window start) and is sent as a conditional create (`ifNoneExist`). Sending the
   same window twice stores it once. The integration test replays the same recording twice
@@ -53,7 +55,7 @@ pulse-fhir replay fixtures/dropout.txt.gz --start 2026-10-16T09:00:00+02:00 \
     --subject Patient/example --device-serial PM-001
 
 # against a local HAPI FHIR server
-docker run -p 8080:8080 hapiproject/hapi:latest
+docker run -p 8080:8080 hapiproject/hapi:v8.12.0-2
 pulse-fhir replay fixtures/rest.txt.gz --start 2026-10-16T09:00:00+02:00 \
     --subject "Patient?identifier=https://example.org/mrn|12345" \
     --device-serial PM-001 --fhir http://localhost:8080/fhir

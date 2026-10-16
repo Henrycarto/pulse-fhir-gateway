@@ -6,6 +6,10 @@
       "fullUrl": "urn:uuid:09ac363d-abfe-57bf-aeda-287e1dca8ac3",
       "resource": {
         "resourceType": "Device",
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Pulse monitor, ATmega328P, PPG finger sensor, serial PM-001. Not a medical device.</div>"
+        },
         "identifier": [
           {
             "system": "https://henrycarto.com/fhir/pulse-monitor-serial",
@@ -40,6 +44,10 @@
           "profile": [
             "http://hl7.org/fhir/StructureDefinition/heartrate"
           ]
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Heart rate 71 /min, 2026-10-16T07:00:00+00:00 to 2026-10-16T07:00:30+00:00, device PM-001.</div>"
         },
         "identifier": [
           {
@@ -77,6 +85,11 @@
           "start": "2026-10-16T07:00:00+00:00",
           "end": "2026-10-16T07:00:30+00:00"
         },
+        "performer": [
+          {
+            "reference": "Patient/example"
+          }
+        ],
         "device": {
           "reference": "urn:uuid:09ac363d-abfe-57bf-aeda-287e1dca8ac3"
         },
@@ -104,6 +117,10 @@
           "profile": [
             "http://hl7.org/fhir/StructureDefinition/heartrate"
           ]
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Heart rate 71 /min, 2026-10-16T07:00:30+00:00 to 2026-10-16T07:01:00+00:00, device PM-001.</div>"
         },
         "identifier": [
           {
@@ -141,6 +158,11 @@
           "start": "2026-10-16T07:00:30+00:00",
           "end": "2026-10-16T07:01:00+00:00"
         },
+        "performer": [
+          {
+            "reference": "Patient/example"
+          }
+        ],
         "device": {
           "reference": "urn:uuid:09ac363d-abfe-57bf-aeda-287e1dca8ac3"
         },
@@ -168,6 +190,10 @@
           "profile": [
             "http://hl7.org/fhir/StructureDefinition/heartrate"
           ]
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Heart rate not performed, 2026-10-16T07:01:00+00:00 to 2026-10-16T07:01:30+00:00, device PM-001. Sensor gave a valid rate for 42% of the interval (minimum 80%).</div>"
         },
         "identifier": [
           {
@@ -205,6 +231,11 @@
           "start": "2026-10-16T07:01:00+00:00",
           "end": "2026-10-16T07:01:30+00:00"
         },
+        "performer": [
+          {
+            "reference": "Patient/example"
+          }
+        ],
         "device": {
           "reference": "urn:uuid:09ac363d-abfe-57bf-aeda-287e1dca8ac3"
         },
@@ -236,6 +267,10 @@
           "profile": [
             "http://hl7.org/fhir/StructureDefinition/heartrate"
           ]
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Heart rate not performed, 2026-10-16T07:01:30+00:00 to 2026-10-16T07:02:00+00:00, device PM-001. Sensor gave a valid rate for 30% of the interval (minimum 80%).</div>"
         },
         "identifier": [
           {
@@ -273,6 +308,11 @@
           "start": "2026-10-16T07:01:30+00:00",
           "end": "2026-10-16T07:02:00+00:00"
         },
+        "performer": [
+          {
+            "reference": "Patient/example"
+          }
+        ],
         "device": {
           "reference": "urn:uuid:09ac363d-abfe-57bf-aeda-287e1dca8ac3"
         },
@@ -304,6 +344,10 @@
           "profile": [
             "http://hl7.org/fhir/StructureDefinition/heartrate"
           ]
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Heart rate 71 /min, 2026-10-16T07:02:00+00:00 to 2026-10-16T07:02:30+00:00, device PM-001.</div>"
         },
         "identifier": [
           {
@@ -341,6 +385,11 @@
           "start": "2026-10-16T07:02:00+00:00",
           "end": "2026-10-16T07:02:30+00:00"
         },
+        "performer": [
+          {
+            "reference": "Patient/example"
+          }
+        ],
         "device": {
           "reference": "urn:uuid:09ac363d-abfe-57bf-aeda-287e1dca8ac3"
         },
@@ -368,6 +417,10 @@
           "profile": [
             "http://hl7.org/fhir/StructureDefinition/heartrate"
           ]
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Heart rate 71 /min, 2026-10-16T07:02:30+00:00 to 2026-10-16T07:03:00+00:00, device PM-001.</div>"
         },
         "identifier": [
           {
@@ -405,6 +458,11 @@
           "start": "2026-10-16T07:02:30+00:00",
           "end": "2026-10-16T07:03:00+00:00"
         },
+        "performer": [
+          {
+            "reference": "Patient/example"
+          }
+        ],
         "device": {
           "reference": "urn:uuid:09ac363d-abfe-57bf-aeda-287e1dca8ac3"
         },
