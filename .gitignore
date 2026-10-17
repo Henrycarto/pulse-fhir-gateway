@@ -10,9 +10,6 @@ outbox.sqlite3
 validator_cli.jar
 validation.json
 .env
-.claude/
-CLAUDE.md
-CLAUDE.local.md
 *.zip
 junit-*.xml
 traceability.md
