@@ -13,3 +13,6 @@ validation.json
 *.zip
 junit-*.xml
 traceability.md
+
+# Private interview notes
+INTERVIEW_NOTES.md
